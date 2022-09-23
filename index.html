@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script defer type="text/javascript" src="api-client.js"></script>
+		<script defer type="text/javascript" src="script.js"></script>
+		<link rel="stylesheet" type="text/css" href="./style.css" />
+		<title>To do</title>
+	</head>
+	<body>
+		<section class="toDolist">
+			<h3>To do list</h3>
+			<div id="taskcontainer">
+				<!-- <div class="task">
+					<div class="content">
+						<input type="text" name="text" id="task" value="my task" readonly />
+					</div>
+					<button class="edit">edit</button>
+					<button class="delete">delete</button> -->
+				</div>
+			</div>
+		</section>
+		<form id="newTaskInputForm">
+			<input type="text" id="newTaskInput" placeholder="add your tasks here" />
+		</form>
+
+		<button id="delete">delete all tasks</button>
+		<input type="submit" id="add" value="add Task" />
+	</body>
+</html>
