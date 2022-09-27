@@ -20,48 +20,55 @@ const getToDoData = async () => {
 };
 
 // post data to sever
-const postToDoData = async () => {
+const postToDoData = async (task) => {
 	try {
 		const response = await fetch(baseUrl, {
 			method: "POST",
-			body: JSON.stringify(postToDoData),
+			body: JSON.stringify(task),
 			headers: {
 				"Content-Type": "application/json",
 			},
 		});
-		const data = response.json().then((data) => {
-			let itemDescription = data.description;
-			let itemId = data._id;
-			let done = data.done;
-			toDoDatafunction(itemDescription, itemId, done);
-			createTask();
+		const data = response.json(data).then(() => {
 			console.log(`Taak is op de server gepost`);
+			toDoDatafunction(data);
 		});
 
-		return data;
+		//return data;
 	} catch (err) {
 		console.log(err, "dit lukt me niet");
 	}
 };
-postToDoData();
 
 // change data on server with PUT
 
-// delete data from server
-
-/*const deleteData = async () => {
+const changeData = async () => {
 	try {
 		const response = await fetch(baseUrl, {
-			method: "DELETE",
+			methode: "PUT",
+			body: JSON.stringify(task),
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify(fetch),
 		});
-		const data = await response.json();
-		console.log("deleted", data);
+		const data = response.json(data).then(() => {
+			console.log("de taak is gewijzigd");
+			// hier de editfunction()
+		});
+	} catch (error) {
+		console.log("de taak kon niet worden aagepast");
+	}
+};
+
+// delete data from server
+
+const deleteData = async (id) => {
+	try {
+		const response = await fetch(baseUrl + id, {
+			method: "DELETE",
+		});
+		console.log("deleted");
 	} catch (err) {
 		console.log(err, "sorry, wat?");
 	}
 };
-deleteData();*/
