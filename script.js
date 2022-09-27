@@ -1,64 +1,59 @@
 // functions to add new elements to the dom
+const userInput = document.getElementById("newTaskInput");
+
+async function toDoDatafunction() {
+	let toDoData = await getToDoData();
+	toDoData.forEach((task) => {
+		let newTask = {
+			description: task.description,
+			id: task._id,
+			done: task.done,
+		};
+		task.description = userInput.value;
+		task.done = false;
+		toDoData.push(newTask);
+	});
+}
 
 function createTask() {
 	const parent = document.getElementById("taskcontainer");
 	const newDiv = document.createElement("div");
-	//const input = document.querySelector("#newTaskInput");
-	//const task = input;
+	newDiv.classList.add("toDoTask");
 	parent.appendChild(newDiv);
-
-	// plek om de niewe taak op te slaan input want makkelijker te editen.
-	const taskContent = document.createElement("input");
-	taskContent.classList.add("text");
-	taskContent.type = "text";
-	//taskContent.value = `${input}`;
-	taskContent.setAttribute("readonly", "readonly");
-
-	newDiv.appendChild(taskContent);
-
 	// done button
 	taskDone = document.createElement("input");
 	taskDone.setAttribute("type", "checkbox");
 	taskDone.classList.add("done");
+	newDiv.appendChild(taskDone);
+
+	// plek om de niewe taak op te slaan input want makkelijker te editen.
+	const taskContent = document.createElement("div");
+	taskContent.classList.add("text");
+	taskContent.type = "text";
+	taskContent.innerHTML = userInput.value;
+	taskContent.setAttribute("readonly", "readonly");
+
+	newDiv.appendChild(taskContent);
+	// edit
+	const editButton = document.createElement("button");
+	editButton.classList.add("edit");
+
 	// delete button
 	const deleteButton = document.createElement("button");
 	deleteButton.classList.add("delete");
 	deleteButton.innerText = "Delete";
 	// buttons aan de div toevoegen
-	newDiv.appendChild(taskDone);
+	newDiv.appendChild(editButton);
 	newDiv.appendChild(deleteButton);
 }
-createTask();
-
-//data display
-async function toDoDatafunction() {
-	let toDoData = await getToDoData();
-	toDoData.forEach((task) => {
-		let newTask = [task.description, task._id, task.done];
-		task.description = task.value;
-		task.done = false;
-		toDoData.push(newTask);
-	});
-}
-toDoDatafunction();
-
-//new input
-function newInput() {
-	const userInput = document.getElementById("newTaskInput");
-	if (userInput != "") {
-		let task = { description: `${userInput}`, id: `${_id}`, done: false };
-		postToDoData(task);
-	} else {
-		alert("please enter a task.");
-	}
-}
-
-// vullen van de data:
+//data display, toevoegen van properties en value
 
 let addbutton = document.getElementById("add");
 addbutton.addEventListener("click", (e) => {
 	e.preventDefault();
+	createTask();
 	postToDoData();
+
 	console.log("klik");
 });
 

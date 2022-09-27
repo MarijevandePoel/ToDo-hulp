@@ -1,5 +1,7 @@
 const baseUrl = `http://localhost:3000/`;
 
+// GET data from server
+
 const getToDoData = async () => {
 	try {
 		const response = await fetch(baseUrl, {
@@ -9,6 +11,7 @@ const getToDoData = async () => {
 			},
 		});
 		const data = await response.json();
+
 		console.log("dit is het Get request", data);
 		return data;
 	} catch (err) {
@@ -16,6 +19,7 @@ const getToDoData = async () => {
 	}
 };
 
+// post data to sever
 const postToDoData = async () => {
 	try {
 		const response = await fetch(baseUrl, {
@@ -29,8 +33,9 @@ const postToDoData = async () => {
 			let itemDescription = data.description;
 			let itemId = data._id;
 			let done = data.done;
-			createTask(itemDescription, itemId, done);
-			console.log(`Taak is gepost`);
+			toDoDatafunction(itemDescription, itemId, done);
+			createTask();
+			console.log(`Taak is op de server gepost`);
 		});
 
 		return data;
@@ -39,6 +44,10 @@ const postToDoData = async () => {
 	}
 };
 postToDoData();
+
+// change data on server with PUT
+
+// delete data from server
 
 /*const deleteData = async () => {
 	try {
