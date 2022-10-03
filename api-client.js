@@ -29,12 +29,12 @@ const postToDoData = async (task) => {
 				"Content-Type": "application/json",
 			},
 		});
-		const data = response.json(data).then(() => {
-			console.log(`Taak is op de server gepost`);
-			toDoDatafunction(data);
-		});
+		const data = response.json().then((info) => {
+			//console.log(`Taak is op de server gepost`, info);
+			createTask(info);
 
-		//return data;
+			// 	return data;
+		});
 	} catch (err) {
 		console.log(err, "dit lukt me niet");
 	}
@@ -42,11 +42,11 @@ const postToDoData = async (task) => {
 
 // change data on server with PUT
 
-const changeData = async () => {
+const changeData = async (description) => {
 	try {
-		const response = await fetch(baseUrl, {
+		const response = await fetch(baseUrl + id, {
 			methode: "PUT",
-			body: JSON.stringify(task),
+			body: JSON.stringify(description), //change description
 			headers: {
 				"Content-Type": "application/json",
 			},

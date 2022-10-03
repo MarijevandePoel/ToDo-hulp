@@ -1,9 +1,14 @@
 toDoDatafunction();
-
+const list = document.getElementById("taskcontainer");
+function emptyList() {
+	list.innerHTML = "";
+}
 const userInput = document.getElementById("newTaskInput");
+const taskContent = document.getElementsByClassName("text");
 
 //krijg data van server met de waarden desc, id en done.
 async function toDoDatafunction() {
+	emptyList;
 	let toDoData = await getToDoData();
 	toDoData.forEach((task) => {
 		let newTask = {
@@ -16,34 +21,37 @@ async function toDoDatafunction() {
 	});
 }
 // function to add new elements to the dom
-function createTask(description, id, done) {
-	//console.log(newTask);
+function createTask(newTask) {
+	//console.log("newTask", newTask.description);
 	const parent = document.getElementById("taskcontainer");
 	const newDiv = document.createElement("div");
-	newDiv.classList.add("toDoTask", id);
+	newDiv.classList.add("toDoTask");
+	newDiv.setAttribute("id", newTask.id);
 	parent.appendChild(newDiv);
 	// done button
 	taskDone = document.createElement("input");
 	taskDone.setAttribute("type", "checkbox");
-
-	taskDone.classList.add("done", done);
+	taskDone.classList.add("done", newTask.done);
+	taskDone.setAttribute("id", "taskDone");
 	newDiv.appendChild(taskDone);
 
-	// plek om de niewe taak op te slaan input want makkelijker te editen.
+	// plek om de nieuwe taak op te slaan input want makkelijker te editen.
 	const taskContent = document.createElement("input");
 	taskContent.classList.add("text");
 	taskContent.type = "text";
-	(taskContent.innerHTML = userInput.value), description;
+	taskContent.value = newTask.description;
 	taskContent.setAttribute("readonly", "readonly");
 
 	newDiv.appendChild(taskContent);
 	// edit
 	const editButton = document.createElement("button");
 	editButton.classList.add("edit");
+	editButton.setAttribute("id", "editButton");
 
 	// delete button
 	const deleteButton = document.createElement("button");
 	deleteButton.classList.add("delete");
+	deleteButton.setAttribute("id", "deleteButton");
 	deleteButton.innerText = "Delete";
 	// buttons aan de div toevoegen
 	newDiv.appendChild(editButton);
@@ -51,28 +59,44 @@ function createTask(description, id, done) {
 }
 // post new task to server. Nieuwe taak moet met deze values worden toegvoegd aan de server.
 function newPost() {
-	const userInput = document.getElementById("newTaskInput");
+	const userInput = document.getElementById("newTaskInput").value;
+	//console.log(userInput);
+
 	let task = { description: `${userInput}`, done: false };
 	postToDoData(task);
 }
 
-let addbutton = document.getElementById("add");
-addbutton.addEventListener("click", (e) => {
-	e.preventDefault();
-	createTask();
-
-	console.log("klik");
+add.addEventListener("click", (e) => {
+	e.preventDefault;
+	//emptyList;
+	newPost();
 });
 
 // delete function
-let deleteAllButton = document.getElementById("deleteAll");
-deleteAllButton.addEventListener("click", (e) => {
-	e.preventDefault();
-	console.log(e);
-	//deleteData(e);
+list.addEventListener("click", function (del) {
+	if (del.target.className === "delete") {
+		console.log("klik");
+		const div = del.target.parentElement;
+		list.removeChild(div);
+		deleteData();
+	}
 });
+// done fucntion
 
 // edit function
+let taskInput = document.getElementsByClassName("text");
+list.addEventListener("click", function (edit) {
+	if (edit.target.className === "edit") {
+		console.log("edit");
+		editButton.innertext = "save";
+		taskInput.removeAttribute("readonly");
+		taskInput.focus();
+	} else {
+		editButton.innerText = "Edit";
+		taskInput.setAttribute("readonly", "readonly");
+	}
+});
+
 // div die de attribute readlonly heeft removeAttribute("readonly")
 // weer ophalen van de fetch function
 //click = true  falsedefault
