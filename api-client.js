@@ -51,9 +51,9 @@ const changeData = async (description) => {
 				"Content-Type": "application/json",
 			},
 		});
-		const data = response.json(data).then(() => {
+		const data = response.json(data).then((item) => {
 			console.log("de taak is gewijzigd");
-			// hier de editfunction()
+			edit(item.description);
 		});
 	} catch (error) {
 		console.log("de taak kon niet worden aagepast");
