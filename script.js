@@ -82,10 +82,10 @@ list.addEventListener("click", function (del) {
 // done function
 
 list.addEventListener("change", function (task) {
-	if (task.target.classList === "taskDone") {
+	if (task.target.id === "taskDone") {
 		let parent = task.target.parentElement;
 
-		if (e.currentTarget.checked) {
+		if (task.currentTarget.checked) {
 			console.log("checked");
 			parent.addClassList("done");
 			task = parent.lastChild;
