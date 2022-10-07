@@ -31,7 +31,7 @@ function createTask(newTask) {
 	// done button
 	taskDone = document.createElement("input");
 	taskDone.setAttribute("type", "checkbox");
-	taskDone.classList.add("done", newTask.done);
+	taskDone.classList.add("taskDone", newTask.done);
 	taskDone.setAttribute("id", "taskDone");
 	newDiv.appendChild(taskDone);
 
@@ -45,13 +45,11 @@ function createTask(newTask) {
 	newDiv.appendChild(taskContent);
 	// edit
 	const editButton = document.createElement("button", "i");
-	editButton.classList.add("edit");
 	editButton.setAttribute("id", "editButton");
 	editButton.className = "fa-solid fa-pencil";
 
 	// delete button
 	const deleteButton = document.createElement("button", "i");
-	deleteButton.classList.add("delete");
 	deleteButton.setAttribute("id", "deleteButton");
 	deleteButton.className = "fa-solid fa-trash";
 	// buttons aan de div toevoegen
@@ -62,7 +60,6 @@ function createTask(newTask) {
 function newPost() {
 	const userInput = document.getElementById("newTaskInput").value;
 	//console.log(userInput);
-
 	let task = { description: `${userInput}`, done: false };
 	postToDoData(task);
 }
@@ -76,7 +73,7 @@ add.addEventListener("click", (e) => {
 // delete function
 list.addEventListener("click", function (del) {
 	if (del.target.className === "fa-solid fa-trash") {
-		console.log("klik");
+		console.log("delete");
 		const div = del.target.parentElement;
 		list.removeChild(div);
 		deleteData(div.id);
@@ -84,14 +81,14 @@ list.addEventListener("click", function (del) {
 });
 // done function
 
-list.addEventListener("change", function (done) {
-	if (done.target.className === "done") {
+list.addEventListener("change", function (task) {
+	if (task.target.classList === "taskDone") {
 		let parent = task.target.parentElement;
-		let klaar = task.done === true;
-		if (e.currentTraget.checked) {
-			task.addClassList("done");
+
+		if (e.currentTarget.checked) {
+			console.log("checked");
+			parent.addClassList("done");
 			task = parent.lastChild;
-			task.done = klaar;
 		} else {
 			console.log("not checked");
 		}
@@ -109,18 +106,14 @@ list.addEventListener("change", function (done) {
 // 		console.log("edit");
 // 		textElement.removeAttribute("readonly");
 // 		textElement.focus();
-// 		editButton.classList.remove("edit");
 // 		editButton.className.remove("fa-solid fa-pencil");
-// 		editButton.addClassList("save");
 // 		editButton.addClassName("fa-solid fa-floppy-disk");
 // 	} else if ((editButton.className = "fa-solid fa-floppy-disk")) {
 // 		console.log("save");
 
 // 		textElement.setAttribute("readonly", "readonly");
 // 		editButton.className.remove("fa-solid fa-floppy-disk");
-// 		editButton.classList.remove("save");
 // 		editButton.addClassName("fa-solid fa-pencil");
-// 		editButton.addClassList("edit");
 // 		let editItem = { description: textValue };
 // 		changeData(editItem, id);
 // 	}
